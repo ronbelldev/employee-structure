@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../Footer';
 import EmployeeSummary from '../EmployeeSummary';
-import './index.scss';
 import { getButtonsProps, onToggleIsEditing } from './utils';
 import EditableField from '../EditableField'
+import './index.scss';
 
 const EmployeeDetails = ({ employee = {}, onDeleteEmployee, onEdit, onSave, onEditField }) => {
     const [isEditing, setIsEditing] = useState(false);
-    // const [editedEmployee, setEditedEmployee] = useState({ ...employee });
     const [editedValues, setEditedValues] = useState()
 
     const onClickSave = () => {
         onSave(editedValues);
         setIsEditing(false);
     };
-    console.log("editedValues: ", editedValues)
-    // const onInputChange = (field, value) => {
-    //     setEditedEmployee((prev) => ({ ...prev, [field]: value }));
-    // };
 
     const callbacks = isEditing
         ? [onToggleIsEditing(setIsEditing, true), onClickSave]
@@ -28,7 +23,7 @@ const EmployeeDetails = ({ employee = {}, onDeleteEmployee, onEdit, onSave, onEd
     useEffect(() => {
         setButtonProps(getButtonsProps(isEditing, callbacks));
     }, [employee, isEditing, editedValues]);
-    // console.log("editedValues: ", editedValues)
+
     return (
         <div className='employee-details'>
             <div className='employee-details-data'>
@@ -43,6 +38,7 @@ const EmployeeDetails = ({ employee = {}, onDeleteEmployee, onEdit, onSave, onEd
                         value={editedValues?.bio || employee.bio}
                         isEditing={isEditing}
                         onInputChange={newBio => setEditedValues({ ...(editedValues || {}), bio: newBio })}
+                        placeholder='Bio'
                     >
                         <div className='employee-details-bio'>
                             {employee.bio}

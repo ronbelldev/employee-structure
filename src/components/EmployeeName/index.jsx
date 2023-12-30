@@ -6,6 +6,7 @@ import EditableField from '../EditableField'
 const EmployeeName = ({ firstName, lastName, isBig, isEditing, setEditedValues, editedValues }) =>
     <div className={classNames('employee-name', { big: isBig })}>
         <EditableField
+            placeholder='first name'
             value={editedValues?.firstName || firstName}
             isEditing={isEditing}
             onInputChange={firstName => setEditedValues?.({ ...(editedValues || {}), firstName })}
@@ -14,6 +15,7 @@ const EmployeeName = ({ firstName, lastName, isBig, isEditing, setEditedValues, 
         </EditableField>
             <div className='employee-name-last-name'>
                 <EditableField
+                    placeholder='Last name'
                     value={editedValues?.lastName || lastName}
                     isEditing={isEditing}
                     onInputChange={lastName => setEditedValues?.({ ...(editedValues || {}), lastName })}

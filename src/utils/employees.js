@@ -12,7 +12,37 @@ export const normalizeEmployees = employees => employees.map(employee => ({
     "bio": employee.bio
 }))
 
-export const  onEditField = ({
+export const createHierarchy = employees => {
+    const employeesMap = new Map()
+
+    employees.forEach(employee => {
+        employeesMap.set(employee.id, { ...employee, subEmployees: [] })
+    })
+
+    const root = []
+
+    employees.forEach(employee => {
+        const managerId = employee.managerId
+
+        if (managerId
+            // need this additional loop because in the data some root managers have managerId but that id does not refer to any data
+            && employees.find(employee => employee.id === managerId)) {
+            const manager = employeesMap.get(managerId)
+
+            if (manager) {
+                manager.subEmployees.push(employeesMap.get(employee.id))
+            }
+        } else {
+            root.push(employeesMap.get(employee.id))
+        }
+    })
+
+    return root
+}
+
+
+
+export const onEditField = ({
     employeeId,
     field,
     newValue,
@@ -21,6 +51,11 @@ export const  onEditField = ({
 }) => {
     setEmployees(employees.map(employee => employee.id === employeeId
         ? ({ ...employee, [field]: newValue })
-        : employee)
+        : {
+            ...employee,
+            subEmployees: employee.subEmployees.map(employee => employee.id === employeeId
+                ? ({ ...employee, [field]: newValue })
+                : employee
+            )})
     )
 }

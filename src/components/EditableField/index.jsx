@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './index.scss'
-const EditableField = ({ isEditing, children, onInputChange, value }) => {
+
+const EditableField = ({ isEditing, children, onInputChange, value, placeholder }) => {
     const [editedValue, setEditedValue] = useState(value)
 
     useEffect(() => {
@@ -17,6 +18,7 @@ const EditableField = ({ isEditing, children, onInputChange, value }) => {
 
    return isEditing ?
         <textarea
+            placeholder={placeholder}
             className='text-area-input'
             value={editedValue}
             onChange={(e) => setEditedValue(e.target.value)}
