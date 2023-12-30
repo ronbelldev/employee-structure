@@ -1,0 +1,19 @@
+.employee-details {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15%;
+    align-items: center;
+
+    .employee-details-data {
+        width: 75%;
+
+        .employee-details-bio {
+            margin-top: 50px;
+            text-align: justify;
+            font-size: 24px;
+        }
+    }
+}
+

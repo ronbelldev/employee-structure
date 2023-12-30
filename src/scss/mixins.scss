@@ -1,0 +1,27 @@
+@mixin hovered-scrollbar($overflow-x: hidden) {
+    overflow-x: $overflow-x;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: var(--scrollbar-width) !important;
+        height: var(--scrollbar-width);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: calc(#{var(--scrollbar-width)} / 2);
+        background: inherit;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: inherit;
+    }
+
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            background: var(--pale-lavender);
+        }
+    }
+
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+}

@@ -1,0 +1,8 @@
+.employee-name {
+    display: flex;
+    gap: 0.25em;
+
+    .employee-name-last-name {
+        font-weight: 500;
+    }
+}

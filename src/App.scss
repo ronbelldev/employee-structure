@@ -1,0 +1,52 @@
+@import './scss/mixins.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --charcoal-gray: #3C4142;
+    --pale-lilac: #e2dfe7;
+    --pale-lavender: #84749a;
+    ----dusk: #463f5a;
+    --scrollbar-width: 8px;
+}
+body, home {
+    background-color: var(--charcoal-gray);
+    padding: 12px;
+}
+#root {
+    height: 100%;
+    padding: 12px;
+    background-color: var(--charcoal-gray);
+}
+.home {
+    gap: 16px;
+    display: flex;
+    height: 100%;
+    .left-part {
+        overflow: hidden;
+        flex: 1;
+        background-color: white;
+        border-radius: 8px;
+        padding: 8px;
+        overflow-y: scroll;
+        @include hovered-scrollbar();
+        .employeees-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        @media only screen and (max-width: 1500px) {
+            flex: 2;
+        }
+    }
+
+    .right-part {
+        flex: 3;
+        background-color: white;
+        border-radius: 8px;
+        border: 1px solid black;
+        width: 100%;
+    }
+}
