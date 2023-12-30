@@ -5,6 +5,15 @@ import EmployeeList from './components/EmployeeList'
 import { createHierarchy, findEmployeeByKey, normalizeEmployees, onEditField } from './utils/employees'
 import './App.scss'
 
+const removeEmployeeById = (employees, employeeId) =>
+    employees.filter(employee => {
+        if (employee.id === employeeId) {
+            return false
+        } else if (employee.subEmployees) {
+            employee.subEmployees = removeEmployeeById(employee.subEmployees, employeeId)
+        }
+        return true
+    })
 
 const App = () => {
     const normalizedEmployees = useMemo(() => createHierarchy(normalizeEmployees(mockData)), [])
@@ -20,7 +29,7 @@ const App = () => {
         if (findEmployeeMemoized) {
             setSelectedEmployee(findEmployeeMemoized)
         }
-    }, [findEmployeeMemoized])
+    }, [])
 
     const onSave = (editedValues = {}) => {
         let updatedSelectedEmployee = selectedEmployee
@@ -42,8 +51,8 @@ const App = () => {
     }
 
     const onDeleteEmployee = () => {
-        const updatedEmployees = [...employees.filter((employee) => employee.id !== selectedEmployee.id), ...selectedEmployee.subEmployees]
-        setEmployees(updatedEmployees)
+        const updatedEmployees = removeEmployeeById(employees, selectedEmployee.id)
+        setEmployees(updatedEmployees.concat(selectedEmployee.subEmployees))
         setSelectedEmployee(null)
     }
 
@@ -51,7 +60,6 @@ const App = () => {
         const selectedEmployee = findEmployeeByKey(employees, 'id', employeeId)
         setSelectedEmployee(selectedEmployee)
         window.history.pushState({}, null,  findEmployeeByKey(employees, 'id', employeeId).username)
-
     }
 
     return (
