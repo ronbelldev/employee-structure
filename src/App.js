@@ -1,23 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { mockData } from './mockData'
 import EmployeeDetails from './components/EmployeeDetails'
-import { createHierarchy, normalizeEmployees, onEditField } from './utils/employees'
-import './App.scss'
 import EmployeeList from './components/EmployeeList'
+import { createHierarchy, findEmployeeByKey, normalizeEmployees, onEditField } from './utils/employees'
+import './App.scss'
 
-const findEmployeeByKey = (employees, key, targetValue) => {
-    let foundEmployee
-    for (let employee of employees) {
-        if (employee[key] === targetValue) {
-            return employee
-        }
-        foundEmployee = findEmployeeByKey(employee.subEmployees, key, targetValue)
-        if (foundEmployee) {
-            break
-        }
-    }
-    return foundEmployee
-}
 
 const App = () => {
     const normalizedEmployees = useMemo(() => createHierarchy(normalizeEmployees(mockData)), [])
@@ -75,7 +62,13 @@ const App = () => {
             </div>
             {selectedEmployee && (
                 <div className="right-part">
-                    <EmployeeDetails onDeleteEmployee={onDeleteEmployee} employee={selectedEmployee} onEditField={onEditField} onSave={onSave} />
+                    <EmployeeDetails
+                        selectedEmployee={selectedEmployee}
+                        onDeleteEmployee={onDeleteEmployee}
+                        employee={selectedEmployee}
+                        onEditField={onEditField}
+                        onSave={onSave}
+                    />
                 </div>
             )}
         </div>

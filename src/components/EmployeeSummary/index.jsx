@@ -20,7 +20,7 @@ const getIsSummaryCollapsed = (employees, selectedEmployee, employeeId) => {
 function isManagerOf(managerId, employeeId, employees = []) {
     const manager = employees.find((employee) => employee?.id === managerId)
 
-    if (!manager || !manager.subEmployees || manager.subEmployees.length === 0) {
+    if (!manager || !manager.subEmployees || manager.subEmployees?.length === 0) {
         return false
     }
 
@@ -152,7 +152,7 @@ const EmployeeSummary = (props) => {
                             {...subEmployee}
                             currentIndex={currentIndex + 1}
                             key={subEmployee.id}
-                            isCollapsible={!!subEmployee.subEmployees.length}
+                            isCollapsible={!!subEmployee.subEmployees?.length}
                             index={currentIndex}
                         />
                     ))}

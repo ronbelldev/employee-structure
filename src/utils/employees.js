@@ -1,4 +1,4 @@
-export const normalizeEmployees = employees => employees.map(employee => ({
+export const normalizeEmployees = (employees = []) => employees.map(employee => ({
     "id": employee.id,
     "firstName": employee.first_name,
     "lastName": employee.last_name,
@@ -59,3 +59,22 @@ export const onEditField = ({
             )})
     )
 }
+
+export const findEmployeeByKey = (employees, key, targetValue) => {
+    if (!Array.isArray(employees)) {
+        return undefined
+    }
+
+    let foundEmployee
+    for (let employee of employees) {
+        if (employee[key] === targetValue) {
+            return employee
+        }
+        foundEmployee = findEmployeeByKey(employee.subEmployees, key, targetValue)
+        if (foundEmployee) {
+            break
+        }
+    }
+    return foundEmployee
+}
+

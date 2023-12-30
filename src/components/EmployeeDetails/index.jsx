@@ -5,7 +5,7 @@ import { getButtonsProps, onToggleIsEditing } from './utils';
 import EditableField from '../EditableField'
 import './index.scss';
 
-const EmployeeDetails = ({ employee = {}, onDeleteEmployee, onEdit, onSave, onEditField }) => {
+const EmployeeDetails = ({ selectedEmployee,  employee = {}, onDeleteEmployee, onEdit, onSave, onEditField }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedValues, setEditedValues] = useState()
 
@@ -22,7 +22,7 @@ const EmployeeDetails = ({ employee = {}, onDeleteEmployee, onEdit, onSave, onEd
 
     useEffect(() => {
         setButtonProps(getButtonsProps(isEditing, callbacks));
-    }, [employee, isEditing, editedValues]);
+    }, [selectedEmployee, employee, isEditing, editedValues]);
 
     return (
         <div className='employee-details'>

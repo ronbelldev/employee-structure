@@ -2,13 +2,13 @@ import React from 'react'
 import './index.scss'
 import EmployeeSummary from '../EmployeeSummary'
 
-const EmployeeList = ({ employees, selectedEmployee, onClickEmployeeSummary }) =>
+const EmployeeList = ({ employees = [], selectedEmployee, onClickEmployeeSummary }) =>
     <div className='employee-list'>
         {employees.map(employee =>
             <EmployeeSummary
                 employees={employees}
                 id={employee.id}
-                isCollapsible={!!employee.subEmployees.length}
+                isCollapsible={!!employee.subEmployees?.length}
                 subEmployees={employee.subEmployees}
                 onClickEmployeeSummary={onClickEmployeeSummary}
                 key={employee.id}
